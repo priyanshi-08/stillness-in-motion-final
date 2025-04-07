@@ -1,0 +1,55 @@
+/* SingleClasses.css */
+
+/* Breadcrumbs styles for vertical partition */
+.breadcrumbs {
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    padding: 20px; /* Add padding for spacing */
+    background-color: #f0f4f8; /* Light background color */
+    border: 1px solid #ececec; /* Border for separation */
+}
+
+/* Container for the entire page */
+.container {
+    display: flex; /* Use flexbox for layout */
+    flex-direction: row; /* Arrange items in a row */
+    justify-content: space-between; /* Space between columns */
+}
+
+/* Course details section */
+.single-course-details {
+    background-color: #ffffff; /* White background for course details */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 20px; /* Padding for inner content */
+    flex: 0 0 10%; /* Take up 80% of the space */
+}
+
+/* Sidebar styles */
+.sidebarWrapper {
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack items vertically */
+    background-color: #f8f9fa; /* Light gray background for sidebar */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Padding for sidebar content */
+    flex: 0 0 90%; /* Take up 20% of the space */
+}
+
+/* List items in the sidebar */
+.list {
+    list-style-type: none; /* Remove default list styling */
+    padding: 0; /* Remove padding */
+}
+
+.list li {
+    border-bottom: 1px solid #ececec; /* Bottom border for separation */
+    padding: 10px 0; /* Padding for list items */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .nav-tab-wrapper {
+        flex-direction: column; /* Stack tabs vertically on small screens */
+    }
+}
