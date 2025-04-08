@@ -1,4 +1,5 @@
-# stillness-in-motion-final
+# stillness-in-motion-final - 
+<p>https://stillness-in-motion-final.onrender.com/</p>
 # below are few screenshots of how the app looks
 <img width="1280" alt="Screenshot 2025-04-07 at 7 28 55 PM" src="https://github.com/user-attachments/assets/ea59f7ab-67c2-4a96-b66c-308356b63db2" />
 <img width="1280" alt="Screenshot 2025-04-07 at 7 41 09 PM" src="https://github.com/user-attachments/assets/33384207-44e1-46c4-85f0-dcbda075207c" />
