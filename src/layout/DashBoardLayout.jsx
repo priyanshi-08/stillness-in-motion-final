@@ -151,7 +151,6 @@ const DashBoardLayout = () => {
   }
 
   if (isLoading) {
-    console.log("Hello");
     return <div className='flex justify-center items-center h-screen'>
       <GridLoader color="#28c28b" />
     </div>

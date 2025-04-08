@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useUser from '../../../hooks/useUser';
-import useAxiosFetch from '../../../hooks/useAxiosFetch';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import { ClimbingBoxLoader } from 'react-spinners';
 import { MdDelete } from 'react-icons/md';
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom';
@@ -11,11 +9,8 @@ const SelectedClass = () => {
     const { currentUser } = useUser();
     const [loading, setLoading] = useState(true);
     const [selectedClass, setSelectedClass] = useState([]);
-    const axiosFetch = useAxiosFetch();
     const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
-
-    const role = currentUser?.role;
 
     useEffect(() => {
         axiosSecure.get(`/cart/${currentUser?.email}`)
@@ -66,14 +61,8 @@ const SelectedClass = () => {
 
     const handlePay = (id) => {
         const item = selectedClass.find(cls => cls._id === id);
-        const price = item.price;
-        navigate('/dashboard/user/payment', { state: {price: price, itemId:id } })
-        // axiosSecure('/create-payment-intent').then(res => {
-        //     nagivate('')
-        // }).catch(err => console.log(err));
-    } 
-
-
+        const price = (Number(item.price) * 1.1).toFixed(2);
+        navigate('/dashboard/user/payment', { state: {price: price, itemId:id } }) } 
 
     return (
         <>
@@ -128,13 +117,15 @@ const SelectedClass = () => {
                                 <p className='text-gray-500'>Subtotal</p>
                                 <p >${total}</p></div>
                             <div className='flex justify-between'>
-                                <p className='text-gray-500'>Taxes</p>
+                                <p className='text-gray-500'>Tax (10%)</p>
                                 <p>${taxTotal.toFixed(2)}</p>
                             </div>
-                            <div className='flex justify-between'>
-                                <p className='text-gray-500'>Extra Fee</p>
-                                <p className=''>${extraFee}</p>
-                            </div>
+                            {extraFee > 0 && (
+                                <div className='flex justify-between'>
+                                    <p className='text-gray-500'>Extra Fee (5%)</p>
+                                    <p className=''>${extraFee.toFixed(2)}</p>
+                                </div>
+                            )}
                             <div className='w-50 h-0.5 bg-gray-300 my-2'> </div>
                             <div className='flex justify-between'>
                                 <p className='bold-md'>Total</p>

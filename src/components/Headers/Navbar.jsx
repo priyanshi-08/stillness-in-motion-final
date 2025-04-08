@@ -159,8 +159,7 @@ const Navbar = () => {
                                     )}
                                 {
                                     user && <li><NavLink to={"/dashboard"} className={({ isActive }) =>
-                                        `font-bold ${isActive ? 'text-secondary' : `${navBg.includes('bg-transparent') ?
-                                            'text-white' : 'text-black dark:text-white'}`} hover:text-secondary duration-300`}>Dashboard</NavLink></li>
+                                        `font-bold ${isActive ? 'text-secondary' : 'text-black dark:text-white'} hover:text-secondary duration-300` }>Dashboard</NavLink></li>
                                 }
                                 {
                                     user && <li>
