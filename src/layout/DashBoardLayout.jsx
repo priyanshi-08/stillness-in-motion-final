@@ -104,11 +104,11 @@ const DashBoardLayout = () => {
   ]
 
   const [open, setOpen] = useState(true); 
-  const { isLoading } = useUser();
-  const { currentUser } = useUser();
+  const { currentUser, isLoading } = useUser();
   const { logout, setLoader } = useContext(AuthContext);
   const navigate = useNavigate();
   const role = currentUser?.role;
+  console.log(currentUser)
 
   // Close sidebar on small screens
   const handleResize = () => {

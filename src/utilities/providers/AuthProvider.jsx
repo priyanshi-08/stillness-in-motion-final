@@ -26,10 +26,11 @@ const AuthProvider = ({ children }) => {
     const login = async (email, password) => {
         setLoader(true);
         try {
-            setLoader(false);
-            return await signInWithEmailAndPassword(auth, email, password);
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            return userCredential;
         } catch (error) {
             setError(error.code);
+            setLoader(false);
             throw error;
         }
     }
@@ -70,27 +71,62 @@ const AuthProvider = ({ children }) => {
 
     //check for users
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged((user) => {
+        let isMounted = true;
+        
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
+            if (!isMounted) return;
+            
             setUser(user);
+            setLoader(true);
 
-            if(user){
-                axios.post(('https://stillness-in-motion-server.onrender.com/api/set-token'), {email: user.email, name:user.displayName})
-                .then(data => {
-                    if(data.data.token){
-                        localStorage.setItem('token', data.data.token);
-                        setLoader(false)
-                    } 
-                })
-            } else {
-                localStorage.removeItem('token');
-                setLoader(false);
+            try {
+                if (user) {
+                    const { data } = await axios.post(
+                        'https://stillness-in-motion-server.onrender.com/api/set-token',
+                        { 
+                            email: user.email, 
+                            name: user.displayName 
+                        }
+                    );
+                    localStorage.setItem('token', data.token);
+                } else {
+                    localStorage.removeItem('token');
+                }
+            } catch (error) {
+                console.error('Token management error:', error);
+            } finally {
+                if (isMounted) {
+                    setLoader(false);
+                }
             }
-        })
-        return unsubscribe();
+        });
+
+        return () => {
+            isMounted = false;
+            unsubscribe();
+        };
     }, []);
+
     
     
-    const contextValue = { user, signUp, login, logout, updateUser, googleLogin, error, setError, setLoader};
+    const contextValue = {
+        // State
+        user,
+        loader, 
+        error,
+        
+        // Methods
+        signUp,
+        login,
+        logout,
+        updateUser,
+        googleLogin,
+        
+        // Setters
+        setError,
+        setLoader
+    };
+
 
 return (
     <AuthContext.Provider value={contextValue}>

@@ -36,11 +36,9 @@ const Login = () => {
     
     setLoader(true); // Set loader to true when login starts
     login(email, password)
-
       .then(() => {
       setLoader(false); // Set loader to false after successful login
       navigate(location.state || '/dashboard'); 
-      navigate(0);
     }).catch(err => {
       setError(err.code);
       setLoader(false); // Ensure loader is set to false on error
